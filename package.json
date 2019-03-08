@@ -1,0 +1,15 @@
+{
+  "name": "nihsserver",
+  "version": "1.0.0",
+  "description": "",
+  "main": "signalServer.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "websocket": "^1.0.28",
+    "ws": "^6.2.0"
+  }
+}
