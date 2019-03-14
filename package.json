@@ -4,11 +4,17 @@
   "description": "",
   "main": "signalServer.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Joseph Wood",
   "license": "ISC",
   "dependencies": {
+    "coffee-script": "^1.12.7",
+    "ejs": "^2.6.1",
+    "express": "^4.16.4",
+    "express.io": "^1.1.13",
+    "node-static": "^0.7.11",
+    "socket.io": "^2.2.0",
     "websocket": "^1.0.28",
     "ws": "^6.2.0"
   }
