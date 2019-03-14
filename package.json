@@ -4,6 +4,7 @@
   "description": "",
   "main": "signalServer.js",
   "scripts": {
+    "start": "node signalServer.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Joseph Wood",
