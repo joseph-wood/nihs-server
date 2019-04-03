@@ -9,22 +9,36 @@ server.listen(3000, () => console.log('listening on *:3000'));
 
 // Mapping objects to easily map sockets and users.
 var clients = {};
+var rooms = {};
+// var dedicatedRooms = {room0, room1, room2, room3};
 var users = {};
+
+var caller = 0;
 
 websocket.on('connection', (socket) => {
     clients[socket.id] = socket;
-    socket.on('userJoined', (userId) => onUserJoined(userId, socket));
+    caller++;
+    socket.on('ice', msg => {
+    socket.broadcast.emit('ice', msg);
+    });
+    socket.on('offer', msg => {
+      socket.broadcast.emit('offer', msg);
+    });
+    socket.on('answer', msg => {
+      socket.broadcast.emit('answer', msg);
+    });
+    socket.on('userJoined', (userId) => onUserJoined(userId, socket, caller%2));
     socket.on('message', (message) => onMessageReceived(message, socket));
+    socket.on('disconnect', () => {
+      delete clients[socket.id];
+    })
 });
 
 // Event listeners.
 // When a user joins the chatroom.
-function onUserJoined(userId, socket) {
-  try {
-      users[socket.id] = userId;
-  } catch(err) {
-    console.log(err);
-  }
+function onUserJoined(userId, socket, caller) {
+  users[socket.id] = userId;
+socket.emit('role', !!caller);
 }
 
 // When a user sends a message in the chatroom.
@@ -53,6 +67,6 @@ stdin.addListener('data', function(d) {
   _sendMessage({
     text: d.toString().trim(),
     createdAt: new Date(),
-    user: { _id: 'robot' }
+    user: { _id: 'NiHS Alert' }
   }, null /* no socket */, true /* send from server */);
 });
